@@ -1,113 +1,78 @@
-# 🚜 AI-Assisted Yield Trend Analysis & Farm Planning System
-### *Revolutionizing Precision Agriculture with Multi-Agent AI & IBM Granite*
+# 🌾 Kisan-Mitra AI (Farmer's Friend)
 
-![Status](https://img.shields.io/badge/Status-Prototype%20Complete-success)
-![Tech Stack](https://img.shields.io/badge/Tech-Langflow%20%7C%20IBM%20Watsonx%20%7C%20AstraDB-blue)
-![Hackathon](https://img.shields.io/badge/Hackathon-Problem%20Statement%2015-orange)
+<div align="center">
+
+![Project Status](https://img.shields.io/badge/Status-Active-success)
+![Tech](https://img.shields.io/badge/Stack-IBM_Granite_%7C_Langflow_%7C_AstraDB-blue)
+![UI](https://img.shields.io/badge/UI-Streamlit-red)
+
+**An Intelligent Multi-Agent System empowering Indian Farmers with precision agriculture, real-time market insights, and weather planning.**
+
+*Powered by IBM watsonx.ai & Langflow*
+
+[View Demo](#) • [Report Bug](#) • [Request Feature](#)
+
+</div>
 
 ---
 
 ## 📖 Overview
-The **AI-Assisted Yield Trend Analysis System** is an enterprise-grade, multi-agent AI solution designed to solve the complexity of modern farming. Unlike generic chatbots, this system uses a **Deterministic Multi-Agent Orchestrator** to route complex queries to specialized expert agents.
+**Kisan-Mitra AI** is a GenAI-powered agronomy advisor designed to bridge the information gap for rural farmers. unlike generic chatbots, it uses a **Multi-Agent RAG Architecture** to provide scientifically accurate answers based on localized soil data, government schemes, and live market trends.
 
-Powered by **IBM Granite-13b** and **Langflow**, it eliminates hallucinations by strictly grounding answers in scientific manuals (via RAG), real-time market data, and strict safety protocols.
-
----
-
-## 🚧 The Challenge
-Farmers today are overwhelmed by disconnected data:
-* **Scientific Disconnect:** Soil health manuals are complex and inaccessible.
-* **Market Volatility:** Prices fluctuate daily, making selling decisions risky.
-* **Operational Uncertainty:** Weather forecasts exist, but actionable advice (e.g., "Don't spray urea today") is missing.
-* **Safety Risks:** Generic AI models often recommend banned chemicals.
+### 🌟 Key Features
+* **🌱 Yield Analysis Agent:** Uses RAG (Retrieval Augmented Generation) to analyze soil data (NPK values, pH) from `india_yield_data.csv` to recommend precise fertilizers.
+* **💰 Market Trend Agent:** Provides real-time insights on crop prices (Mandi rates) to help farmers sell at the right time.
+* **🌧️ Weather Planning Agent:** Suggests farming activities (spraying, sowing, harvesting) based on weather forecasts.
+* **🏛️ Govt Scheme Agent:** Educates farmers about subsidies and insurance schemes relevant to their region.
 
 ---
 
-## 💡 The Solution: Multi-Agent Architecture
-We moved beyond simple prompting. Our system employs a **"Supervisor-Worker" architecture** where a central Orchestrator delegates tasks to 4 distinct expert agents:
+## ⚙️ How It Works (Architecture)
 
-### 1. 🌱 Yield & Farm Data Analysis Agent (The Scientist)
-* **Role:** Analyzes soil health, crop inputs, and yield pathology.
-* **Tech:** **RAG (Retrieval Augmented Generation)** using **DataStax Astra DB**.
-* **Capability:** Cross-references user queries against the *ICAR Agronomy Manual 2025* to prescribe exact fertilizer dosages (N-P-K) and diagnose diseases.
-* **Safety:** Includes a **Self-Correction Loop** to auto-detect and block banned chemicals (e.g., Monocrotophos).
+The system is built using a **Low-Code/No-Code** approach with **Langflow** as the orchestrator.
 
-### 2. 💰 Trend & Correlation Detection Agent (The Economist)
-* **Role:** Analyzes market volatility and profitability.
-* **Tech:** **Tavily Search API** for real-time web scraping.
-* **Capability:** Scrapes live APMC/Mandi prices, detects trends (Bullish/Bearish), and generates markdown tables for "Buy/Sell/Hold" recommendations.
+1.  **Input:** Farmer asks a question via the Streamlit UI.
+2.  **Orchestration (Langflow):** The query is routed to the specific agent (Soil, Market, or Weather).
+3.  **Retrieval (Astra DB):** Vector search retrieves relevant context from the uploaded dataset.
+4.  **Generation (IBM Granite):** The **IBM Granite-13b-chat-v2** model generates a human-like, accurate response.
+5.  **Output:** The answer is displayed in the UI with strict formatting.
 
-### 3. 🌦️ Planning & Insight Assistant (The Manager)
-* **Role:** Optimizes farm operations based on micro-climate data.
-* **Tech:** **Logic Gates** & Weather Forecasting.
-* **Capability:** Translates forecasts into logic:
-    * *IF Rain > 50% → "ABORT Pesticide Spraying"* (Prevents wash-off).
-    * *IF Wind > 10km/h → "STOP Irrigation"* (Prevents drift).
+---
 
-### 4. 🤝 Farm Advisory Agent (The Liaison)
-* **Role:** Democratizes access to government schemes.
-* **Capability:** Simplifies complex policies (PM-Kisan, Fasal Bima Yojana) into simple eligibility checklists and application roadmaps.
+## 📸 Screenshots
+
+### 1. The Dashboard (v2.0 UI)
+![Dashboard](path/to/your/dashboard_screenshot.png)
+*Professional, clean interface with Quick Action buttons.*
+
+### 2. Langflow Orchestration
+![Langflow](path/to/your/langflow_screenshot.png)
+*Complex multi-agent routing logic handled visually.*
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Component | Technology | Purpose |
+| Component | Technology | Usage |
 | :--- | :--- | :--- |
-| **Orchestration** | **Langflow** | Visual node-based chaining & agent routing. |
-| **LLM (Brain)** | **IBM Watsonx.ai** | **Granite-13b-chat-v2** for reasoning & summarization. |
-| **Vector Database** | **DataStax Astra DB** | Storing embedded agricultural manuals for RAG. |
-| **Search Tool** | **Tavily AI** | Real-time, noise-free search for market prices. |
-| **Embedding** | **IBM Embeddings** | Converting text to vectors for the database. |
+| **LLM** | **IBM Granite-13b-chat-v2** | Core reasoning and response generation. |
+| **Orchestration** | **Langflow** | Flow management and Agent routing. |
+| **Vector Database** | **DataStax Astra DB** | Storing soil data embeddings for RAG. |
+| **Frontend** | **Streamlit (Python)** | User interface and interaction. |
+| **Embedding Model** | **IBM watsonx Embeddings** | Converting text to vectors. |
 
 ---
 
-## ⚡ Key Features (Hackathon Highlights)
--   **🛡️ Responsible AI Guardrails:** The system actively intercepts responses. If an agent recommends a toxic chemical, the **Safety Supervisor** node rewrites the answer in real-time.
--   **🧠 Chain-of-Thought Reasoning:** Agents don't just answer; they explain *why* (e.g., "I am recommending Zinc because your soil pH is 8.5").
--   **🇮🇳 Hyper-Localized Context:** Tailored specifically for Indian agriculture (Kharif/Rabi seasons, Mandi system, Rupee currency).
+## 🚀 Installation & Setup
 
----
+Follow these steps to run the project locally.
 
-## 🚀 How to Run
-This project is built on **Langflow**. To run it locally or on the cloud:
+### Prerequisites
+* Python 3.9+
+* An IBM Cloud Account (for watsonx.ai)
+* A DataStax Astra DB Account
 
-1.  **Clone the Repo:**
-    ```bash
-    git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
-    ```
-2.  **Import to Langflow:**
-    - Open Langflow dashboard.
-    - Click **"Import"** and select the JSON file from this repo (e.g., `Farm_Agent_Flow.json`).
-3.  **Add API Keys:**
-    - **IBM Watsonx:** Add your API Key & Project ID in the Global Variables or node settings.
-    - **Tavily:** Add your Search API Key.
-4.  **Run:**
-    - Click the **Lightning Bolt ⚡** icon on the Chat Output node.
-    - Open the Playground to start chatting.
-
----
-
-## 📸 Demo Scenarios
-**Scenario 1: Scientific Diagnosis**
-> **User:** "My cotton leaves are turning yellow and I have red soil."
-> **Agent:** Diagnoses Zinc deficiency (Khaira disease) and prescribes Zinc Sulphate, citing the ICAR Manual.
-
-**Scenario 2: Market Logic**
-> **User:** "Should I sell my Onions today in Nashik?"
-> **Agent:** Fetches live Lasalgaon rates, notices a price drop, and advises "HOLD" for 3 days.
-
-**Scenario 3: Operational Safety**
-> **User:** "Can I spray Urea? Heavy rain is forecast tomorrow."
-> **Agent:** **STOP.** Rain will wash away the fertilizer. Leaching hazard detected.
-
----
-
-## 🔮 Future Roadmap
--   [ ] **Voice Integration:** Allowing farmers to speak in local dialects (Hindi/Marathi/Telugu).
--   [ ] **Computer Vision:** Uploading a photo of a diseased leaf for auto-diagnosis.
--   [ ] **IoT Connection:** Directly triggering irrigation sprinklers based on the Planning Agent's decision.
-
----
-
-*Built with ❤️ for the IBM Watsonx Hackathon.*
+### 1. Clone the Repository
+```bash
+git clone [https://github.com/your-username/kisan-mitra-ai.git](https://github.com/your-username/kisan-mitra-ai.git)
+cd kisan-mitra-ai
